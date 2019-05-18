@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.curieotask.NameAddEvent;
 import com.example.curieotask.R;
@@ -36,6 +37,7 @@ public class RecordFragment extends Fragment {
 
     Button startbtn,stopbtn,play,pause;
     MediaRecorder mediaRecorder;
+    TextView txt;
     MediaPlayer mediaPlayer;
     String pathsave = "";
     String FILENAME = "cureio";
@@ -64,6 +66,7 @@ public class RecordFragment extends Fragment {
         // Required empty public constructor
     }
 
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -88,6 +91,7 @@ public class RecordFragment extends Fragment {
         startbtn =view.findViewById(R.id.start_record);
         stopbtn = view.findViewById(R.id.stop_record);
         play = view.findViewById(R.id.play);
+        txt = view.findViewById(R.id.text);
         pause = view.findViewById(R.id.pause);
         recyclerView = view.findViewById(R.id.recycler_view);
         recordingsAdapter = new RecordingsAdapter(recordingsList,getContext());
@@ -127,6 +131,7 @@ public class RecordFragment extends Fragment {
                 try{
                     mediaRecorder.prepare();
                     mediaRecorder.start();
+                    txt.setText("RECORDING......");
                 }
                 catch (IOException e){
 
@@ -139,6 +144,8 @@ public class RecordFragment extends Fragment {
 
                 EventBus bus = EventBus.getDefault();
                 bus.post(new NameAddEvent(fname));
+
+
           //      Toast.makeText(this,"RECORDING....",Toast.LENGTH_SHORT).show();
             }
         });
@@ -147,7 +154,7 @@ public class RecordFragment extends Fragment {
             public void onClick(View v) {
                 mediaRecorder.stop();
                 mediaRecorder.release();
-
+                txt.setText("RECORDING STOPPED");
                 stopbtn.setEnabled(false);
                 play.setEnabled(true);
                 startbtn.setEnabled(true);
@@ -177,6 +184,9 @@ public class RecordFragment extends Fragment {
                     }
                     mediaPlayer.seekTo(pauseCurrentPosition);
                     mediaPlayer.start();
+                    txt.setText("RECORDING PLAYING");
+
+
 
                     pauseIsClicked = false;
                 }
@@ -195,7 +205,7 @@ public class RecordFragment extends Fragment {
                 }
 
 
-
+                txt.setText("RECORDING PLAYING");
                 mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
@@ -222,6 +232,7 @@ public class RecordFragment extends Fragment {
                     Log.d(TAG, "onClick: current position "+ mediaPlayer.getCurrentPosition());
                     mediaPlayer.stop();
                     mediaPlayer.release();
+                    txt.setText("RECORDING PAUSED");
 
                     setUpMediaRecorder();
                 }

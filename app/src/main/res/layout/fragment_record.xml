@@ -18,33 +18,40 @@
     <Button
         android:id="@+id/start_record"
         android:text="START"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="100dp"
         android:layout_width="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_height="wrap_content" />
      <Button
          android:id="@+id/stop_record"
          android:layout_marginTop="100dp"
+         android:layout_marginLeft="100dp"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:text="STOP"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="PLAY AREA"
-        android:layout_marginTop="150dp"
+
+    <TextView android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:textSize="30sp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="200dp"
         />
     <Button
         android:id="@+id/play"
+        android:layout_marginLeft="100dp"
         android:layout_width="wrap_content"
         android:text="PLAY"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="300dp"
         android:layout_height="wrap_content" />
     <Button
         android:id="@+id/pause"
         android:layout_width="wrap_content"
         android:text="PAUSE"
-        android:layout_marginTop="250dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="350dp"
         android:layout_height="wrap_content" />
 
 

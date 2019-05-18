@@ -114,7 +114,7 @@ public class RecordingsAdapter extends RecyclerView.Adapter<RecordingsAdapter.My
             @Override
             public void onClick(View v) {
                 if(myViewHolder.mPlayer != null){
-                    myViewHolder.mPlayer.getCurrentPosition();
+         //           myViewHolder.mPlayer.getCurrentPosition();
                     myViewHolder.mPlayer.stop();
                     myViewHolder.mPlayer.release();
 
