@@ -13,8 +13,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.curieotask.Fragments.AllRecordingsFragment;
@@ -23,22 +21,17 @@ import com.example.curieotask.Fragments.RecordFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements RecordFragment.RecordingAdded {
+public class MainActivity extends AppCompatActivity  {
 
-    TextView username;
-    private static final String RECORD = "record";
-    private static final String ALL_RECORDINGS = "allrecords";
 
-    RecordFragment mRecordFragment;
-    AllRecordingsFragment mAllRecordFragment;
-
-    private static final String TAG = "MainActivity";
 
     final int REQUEST_PERMISSION_CODE = 1000;
-    RecordFragment recordFragment = new RecordFragment();
+
     private List<Recordings> recordingsList =new ArrayList<>();
     private RecordingsAdapter recordingsAdapter;
     AllRecordingsFragment allRecordingsFragment = new AllRecordingsFragment();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,15 +115,10 @@ public class MainActivity extends AppCompatActivity implements RecordFragment.Re
     }
 
     @Override
-    public void sendRecording(String recordName) {
-
-        Log.d(TAG, "sendRecording: "+ recordName);
-
-            AllRecordingsFragment allRecordingsFragment = (AllRecordingsFragment) getSupportFragmentManager().findFragmentByTag("All Recordings");
-            allRecordingsFragment.refreshList(recordName);
-
+    public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
 

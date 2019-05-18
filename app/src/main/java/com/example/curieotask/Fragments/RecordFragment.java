@@ -45,21 +45,10 @@ public class RecordFragment extends Fragment {
     int pauseCurrentPosition ;
     File file;
 
-    RecordingAdded mCallback;
-
-
 
     private List<Recordings> recordingsList =new ArrayList<>();
     private RecyclerView recyclerView;
     private RecordingsAdapter recordingsAdapter;
-
-    public interface RecordingAdded{
-
-       public void sendRecording(String recordName);
-
-    }
-
-
 
 
     public RecordFragment() {
@@ -72,7 +61,6 @@ public class RecordFragment extends Fragment {
         super.onAttach(activity);
 
         try{
-            mCallback = (RecordingAdded) activity;
 
         }
         catch (ClassCastException e){
@@ -254,25 +242,6 @@ public class RecordFragment extends Fragment {
         else
             mediaRecorder.setOutputFile(pathsave);
     }
-    private ArrayList<String> fetchRecordings() {
-        ArrayList<String> filename = new ArrayList<String>();
-        pathsave = Environment.getExternalStorageDirectory() +File.separator +"curieo";
-        File directory = new File(pathsave);
-        File[] files = directory.listFiles();
-
-        for(int i = 0; i<files.length; i++){
-            String file_name = files[i].getName();
-            filename.add(file_name);
-            Recordings recordings = new Recordings(file_name);
-            recordingsList.add(recordings);
-            recordingsAdapter.notifyDataSetChanged();
-
-        }
-
-        return filename;
-    }
-
-
 
 
 

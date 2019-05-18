@@ -98,26 +98,5 @@ public class AllRecordingsFragment extends Fragment {
         return filename;
     }
 
-    public void refreshList(String recordings){
-
-        Log.d(TAG, "refreshList: "+ recordings);
-
-    }
-    private ArrayList<String> fetchRecordings(List<Recordings> records) {
-        ArrayList<String> filename = new ArrayList<String>();
-        pathsave = Environment.getExternalStorageDirectory() +File.separator +"curieo";
-        File directory = new File(pathsave);
-        File[] files = directory.listFiles();
-
-        for(int i = 0; i<files.length; i++){
-            String file_name = files[i].getName();
-            filename.add(file_name);
-            Recordings recordings = new Recordings(file_name);
-            recordingsList.add(recordings);
-            recordingsAdapter.notifyDataSetChanged();
-        }
-
-        return filename;
-    }
 
 }
