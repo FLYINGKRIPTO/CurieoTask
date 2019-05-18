@@ -19,7 +19,7 @@ import static android.content.ContentValues.TAG;
 public class RecordingsAdapter extends RecyclerView.Adapter<RecordingsAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<Recordings> recordingsList;
+   public List<Recordings> recordingsList;
     private static String mFileName = null;
 
 

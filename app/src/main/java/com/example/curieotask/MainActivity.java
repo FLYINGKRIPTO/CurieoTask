@@ -19,18 +19,21 @@ import com.example.curieotask.Fragments.AllRecordingsFragment;
 import com.example.curieotask.Fragments.RecordFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     TextView username;
     final int REQUEST_PERMISSION_CODE = 1000;
     RecordFragment recordFragment = new RecordFragment();
+    private List<Recordings> recordingsList =new ArrayList<>();
+    private RecordingsAdapter recordingsAdapter;
     AllRecordingsFragment allRecordingsFragment = new AllRecordingsFragment();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        recordingsAdapter = new RecordingsAdapter(recordingsList,MainActivity.this);
 
         if(checkPermissionFromDevice()){
 
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

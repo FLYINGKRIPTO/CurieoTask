@@ -70,12 +70,13 @@ public class AllRecordingsFragment extends Fragment {
     public void refreshAdapter(){
         if(recordingsList != null){
             if(recordingsAdapter == null){
-                recordingsAdapter = new RecordingsAdapter(recordingsList,getContext());
-                Log.d(TAG, "refreshAdapter: inside this ");
-
+                Log.d(TAG, "refreshAdapter: recordings adapter is null ");
             }
             else {
-                recordingsAdapter.notifyDataSetChanged();
+                Log.d(TAG, "refreshAdapter: inside else ");
+
+                 recordingsAdapter.recordingsList = recordingsList;
+                 recordingsAdapter.notifyDataSetChanged();
             }
 
         }
