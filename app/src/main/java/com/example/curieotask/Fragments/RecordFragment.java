@@ -14,9 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.curieotask.NameAddEvent;
 import com.example.curieotask.R;
 import com.example.curieotask.Recordings;
 import com.example.curieotask.RecordingsAdapter;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -134,6 +137,8 @@ public class RecordFragment extends Fragment {
                 pause.setEnabled(false);
               //  fetchRecordings();
 
+                EventBus bus = EventBus.getDefault();
+                bus.post(new NameAddEvent(fname));
           //      Toast.makeText(this,"RECORDING....",Toast.LENGTH_SHORT).show();
             }
         });

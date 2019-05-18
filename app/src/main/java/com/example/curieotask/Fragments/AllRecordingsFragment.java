@@ -12,9 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.curieotask.NameAddEvent;
 import com.example.curieotask.R;
 import com.example.curieotask.Recordings;
 import com.example.curieotask.RecordingsAdapter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,6 +28,8 @@ import java.util.List;
 public class AllRecordingsFragment extends Fragment {
     String pathsave = "";
     String FILENAME = "cureio";
+
+    EventBus eventBus = EventBus.getDefault();
 
     File file;
     private List<Recordings> recordingsList =new ArrayList<>();
@@ -40,10 +46,17 @@ public class AllRecordingsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+            eventBus.register(this);
 
     }
 
 
+    @Subscribe
+    public  void onEvent(NameAddEvent event){
+        Log.d(TAG, "onEvent: Name add event "+ event.newText);
+        Recordings recordings = new Recordings(event.newText);
+        fetchRecordings();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,6 +81,7 @@ public class AllRecordingsFragment extends Fragment {
     }
 
     private ArrayList<String> fetchRecordings() {
+        recordingsList.clear();
         ArrayList<String> filename = new ArrayList<String>();
         pathsave = Environment.getExternalStorageDirectory() +File.separator +"curieo";
         File directory = new File(pathsave);
