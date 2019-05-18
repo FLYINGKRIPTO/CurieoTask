@@ -21,6 +21,8 @@ public class RecordingsAdapter extends RecyclerView.Adapter<RecordingsAdapter.My
     private Context mContext;
    public List<Recordings> recordingsList;
     private static String mFileName = null;
+    boolean pauseIsClicked = false;
+    int pauseCurrentPos ;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -64,23 +66,46 @@ public class RecordingsAdapter extends RecyclerView.Adapter<RecordingsAdapter.My
         myViewHolder.recordingName.setText(recordings.getName());
         mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
         mFileName += "/curieo";
+
         myViewHolder.play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onBindViewHolder play Button clicked on position "+ i+ " name "+ recordings.getName());
 
-                try
-                {
-                    myViewHolder.mPlayer.setDataSource(mFileName+"/"+recordings.getName());
-                    Log.d(TAG, "onClick: location"+mFileName+"/"+recordings.getName());
-                    myViewHolder.mPlayer.prepare();
+                if(pauseIsClicked){
+                    try
+                    {
+                        myViewHolder.mPlayer = new MediaPlayer();
+                        myViewHolder.mPlayer.setDataSource(mFileName+"/"+recordings.getName());
+                        Log.d(TAG, "onClick: location"+mFileName+"/"+recordings.getName());
+                        myViewHolder.mPlayer.prepare();
+                        myViewHolder.mPlayer.seekTo(pauseCurrentPos);
+
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+                    myViewHolder.mPlayer.start();
+                    pauseIsClicked = false;
+                }
+                else{
+                    try
+                    {
+                        myViewHolder.mPlayer = new MediaPlayer();
+                        myViewHolder.mPlayer.setDataSource(mFileName+"/"+recordings.getName());
+                        Log.d(TAG, "onClick: location"+mFileName+"/"+recordings.getName());
+                        myViewHolder.mPlayer.prepare();
+
+                    }
+                    catch (Exception e){
+
+                        e.printStackTrace();
+                    }
+                    myViewHolder.mPlayer.start();
 
                 }
-                catch (Exception e){
 
-                    e.printStackTrace();
-                }
-                myViewHolder.mPlayer.start();
 
             }
 
@@ -95,6 +120,22 @@ public class RecordingsAdapter extends RecyclerView.Adapter<RecordingsAdapter.My
 
 
                 }
+            }
+        });
+
+        myViewHolder.pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(myViewHolder.mPlayer != null){
+                    Log.d(TAG, "onClick: current position"+ myViewHolder.mPlayer.getCurrentPosition());
+                    pauseIsClicked = true;
+                    pauseCurrentPos = myViewHolder.mPlayer.getCurrentPosition();
+                    myViewHolder.mPlayer.stop();
+                    myViewHolder.mPlayer.release();
+
+                }
+
             }
         });
 
