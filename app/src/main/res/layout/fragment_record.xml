@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.RecordFragment">
+
+
+    <TextView
+        android:id="@+id/record_area"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Record Area"
+        android:textSize="20sp"
+        />
+    <Button
+        android:id="@+id/start_record"
+        android:text="START"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_height="wrap_content" />
+     <Button
+         android:id="@+id/stop_record"
+         android:layout_marginTop="100dp"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="STOP"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PLAY AREA"
+        android:layout_marginTop="150dp"
+        />
+    <Button
+        android:id="@+id/play"
+        android:layout_width="wrap_content"
+        android:text="PLAY"
+        android:layout_marginTop="200dp"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/pause"
+        android:layout_width="wrap_content"
+        android:text="PAUSE"
+        android:layout_marginTop="250dp"
+        android:layout_height="wrap_content" />
+
+
+
+
+
+</FrameLayout>
