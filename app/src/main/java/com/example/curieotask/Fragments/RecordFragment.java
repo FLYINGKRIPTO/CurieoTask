@@ -1,5 +1,6 @@
 package com.example.curieotask.Fragments;
 
+import android.app.Activity;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Build;
@@ -39,9 +40,12 @@ public class RecordFragment extends Fragment {
     int pauseCurrentPosition ;
     File file;
 
+    RecordingAdded mCallback;
+
     private List<Recordings> recordingsList =new ArrayList<>();
     private RecyclerView recyclerView;
     private RecordingsAdapter recordingsAdapter;
+
 
 
 
@@ -49,12 +53,25 @@ public class RecordFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try{
+            mCallback = (RecordingAdded) activity;
+
+        }
+        catch (ClassCastException e){
+            throw new ClassCastException(activity.toString()+ " must implement TextClicked");
+
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+        Log.d(TAG, "onCreateView: onCreateView is Called ");
         View view =  inflater.inflate(R.layout.fragment_record, container, false);
 
         startbtn =view.findViewById(R.id.start_record);
@@ -103,9 +120,11 @@ public class RecordFragment extends Fragment {
                 catch (IOException e){
 
                 }
+                startbtn.setEnabled(false);
                 stopbtn.setEnabled(true);
                 play.setEnabled(false);
                 pause.setEnabled(false);
+              //  fetchRecordings();
 
           //      Toast.makeText(this,"RECORDING....",Toast.LENGTH_SHORT).show();
             }
@@ -120,6 +139,7 @@ public class RecordFragment extends Fragment {
                 play.setEnabled(true);
                 startbtn.setEnabled(true);
                 pause.setEnabled(false);
+
                 recordingsAdapter.notifyDataSetChanged();
 
             }
@@ -222,6 +242,7 @@ public class RecordFragment extends Fragment {
             Recordings recordings = new Recordings(file_name);
             recordingsList.add(recordings);
             recordingsAdapter.notifyDataSetChanged();
+
         }
 
         return filename;
@@ -242,6 +263,11 @@ public class RecordFragment extends Fragment {
 
         }
     }
+
+    public interface RecordingAdded{
+        public void sendRecording(List<Recordings> recordingsList);
+    }
+
 
 
 }

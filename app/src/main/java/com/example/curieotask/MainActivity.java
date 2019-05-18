@@ -21,9 +21,15 @@ import com.example.curieotask.Fragments.RecordFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecordFragment.RecordingAdded {
 
     TextView username;
+    private static final String RECORD = "record";
+    private static final String ALL_RECORDINGS = "allrecords";
+
+    RecordFragment mRecordFragment;
+    AllRecordingsFragment mAllRecordFragment;
+
     final int REQUEST_PERMISSION_CODE = 1000;
     RecordFragment recordFragment = new RecordFragment();
     private List<Recordings> recordingsList =new ArrayList<>();
@@ -54,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-
+        viewPager.setCurrentItem(1);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -78,6 +84,18 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        mRecordFragment = (RecordFragment) fragmentManager.findFragmentByTag(RECORD);
+        if(mRecordFragment == null){
+            mRecordFragment = new RecordFragment();
+
+        }
+
+        mAllRecordFragment = (AllRecordingsFragment) fragmentManager.findFragmentByTag(ALL_RECORDINGS);
+        if(mAllRecordFragment == null){
+            mAllRecordFragment = new AllRecordingsFragment();
+        }
     }
 
     private void requestPermission() {
@@ -104,6 +122,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    @Override
+    public void sendRecording(List<Recordings> recordingsList) {
+
+
+
+
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
