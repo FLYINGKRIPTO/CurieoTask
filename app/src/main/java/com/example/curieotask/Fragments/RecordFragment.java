@@ -42,9 +42,17 @@ public class RecordFragment extends Fragment {
 
     RecordingAdded mCallback;
 
+
+
     private List<Recordings> recordingsList =new ArrayList<>();
     private RecyclerView recyclerView;
     private RecordingsAdapter recordingsAdapter;
+
+    public interface RecordingAdded{
+
+       public void sendRecording(String recordName);
+
+    }
 
 
 
@@ -82,8 +90,8 @@ public class RecordFragment extends Fragment {
         recordingsAdapter = new RecordingsAdapter(recordingsList,getContext());
 
 
-        ArrayList<String> allRecordings =  fetchRecordings();
-        Log.d(TAG, "onCreateView: All Recordings "+ allRecordings);
+      //  ArrayList<String> allRecordings =  fetchRecordings();
+       // Log.d(TAG, "onCreateView: All Recordings "+ allRecordings);
 
 
         startbtn.setOnClickListener(new View.OnClickListener() {
@@ -248,25 +256,7 @@ public class RecordFragment extends Fragment {
         return filename;
     }
 
-    public void refreshAdapter(){
-        if(recordingsList != null){
-            if(recordingsAdapter == null){
 
-                Log.d(TAG, "refreshAdapter: recordings Adapter is null");
-
-            }
-            else {
-                Log.d(TAG, "refreshAdapter: inside else");
-               recordingsAdapter.recordingsList = recordingsList;
-               recordingsAdapter.notifyDataSetChanged();
-            }
-
-        }
-    }
-
-    public interface RecordingAdded{
-        public void sendRecording(List<Recordings> recordingsList);
-    }
 
 
 

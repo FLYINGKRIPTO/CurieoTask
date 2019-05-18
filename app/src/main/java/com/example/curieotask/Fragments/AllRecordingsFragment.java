@@ -60,7 +60,7 @@ public class AllRecordingsFragment extends Fragment {
         recyclerView.setAdapter(recordingsAdapter);
 
        ArrayList<String> allRecordings =  fetchRecordings();
-        Log.d(TAG, "onCreateView: All Recordings "+ allRecordings);
+       Log.d(TAG, "onCreateView: All Recordings "+ allRecordings);
 
 
 
@@ -83,23 +83,11 @@ public class AllRecordingsFragment extends Fragment {
 
         return filename;
     }
-    public void refreshAdapter(){
-        if(recordingsList != null){
-            if(recordingsAdapter == null){
-                Log.d(TAG, "refreshAdapter: recordings adapter is null ");
-            }
-            else {
-                Log.d(TAG, "refreshAdapter: inside else ");
 
-                 recordingsAdapter.recordingsList = recordingsList;
-                 recordingsAdapter.notifyDataSetChanged();
-            }
+    public void refreshList(String recordings){
 
-        }
-    }
-    public void refreshList(List<Recordings> recordingsList){
+        Log.d(TAG, "refreshList: "+ recordings);
 
-          fetchRecordings(recordingsList);
     }
     private ArrayList<String> fetchRecordings(List<Recordings> records) {
         ArrayList<String> filename = new ArrayList<String>();

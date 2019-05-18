@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements RecordFragment.Re
     RecordFragment mRecordFragment;
     AllRecordingsFragment mAllRecordFragment;
 
+    private static final String TAG = "MainActivity";
+
     final int REQUEST_PERMISSION_CODE = 1000;
     RecordFragment recordFragment = new RecordFragment();
     private List<Recordings> recordingsList =new ArrayList<>();
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements RecordFragment.Re
         else{
             requestPermission();
         }
+
 
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
@@ -72,10 +76,10 @@ public class MainActivity extends AppCompatActivity implements RecordFragment.Re
 
 
                 if(i == 0){
-                  recordFragment.refreshAdapter();
+
                 }
                 else if(i == 1){
-                   allRecordingsFragment.refreshAdapter();
+
                 }
             }
 
@@ -85,18 +89,10 @@ public class MainActivity extends AppCompatActivity implements RecordFragment.Re
             }
         });
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        mRecordFragment = (RecordFragment) fragmentManager.findFragmentByTag(RECORD);
-        if(mRecordFragment == null){
-            mRecordFragment = new RecordFragment();
 
-        }
-
-        mAllRecordFragment = (AllRecordingsFragment) fragmentManager.findFragmentByTag(ALL_RECORDINGS);
-        if(mAllRecordFragment == null){
-            mAllRecordFragment = new AllRecordingsFragment();
-        }
     }
+
+
 
     private void requestPermission() {
         ActivityCompat.requestPermissions(this, new String[]{
@@ -125,9 +121,12 @@ public class MainActivity extends AppCompatActivity implements RecordFragment.Re
     }
 
     @Override
-    public void sendRecording(List<Recordings> recordingsList) {
+    public void sendRecording(String recordName) {
 
+        Log.d(TAG, "sendRecording: "+ recordName);
 
+            AllRecordingsFragment allRecordingsFragment = (AllRecordingsFragment) getSupportFragmentManager().findFragmentByTag("All Recordings");
+            allRecordingsFragment.refreshList(recordName);
 
 
     }
