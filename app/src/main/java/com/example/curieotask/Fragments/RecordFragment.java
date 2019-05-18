@@ -35,6 +35,8 @@ public class RecordFragment extends Fragment {
     MediaPlayer mediaPlayer;
     String pathsave = "";
     String FILENAME = "cureio";
+    boolean pauseIsClicked = false;
+    int pauseCurrentPosition ;
     File file;
 
     private List<Recordings> recordingsList =new ArrayList<>();
@@ -130,16 +132,36 @@ public class RecordFragment extends Fragment {
                 stopbtn.setEnabled(false);
                 startbtn.setEnabled(false);
 
-                mediaPlayer = new MediaPlayer();
-                try{
-                    mediaPlayer.setDataSource(String.valueOf(file));
-                    mediaPlayer.prepare();
+                if(pauseIsClicked){
+                    mediaPlayer = new MediaPlayer();
+                    try{
+                        mediaPlayer.setDataSource(String.valueOf(file));
+                        mediaPlayer.prepare();
 
-                }
-                catch (IOException e){
+                    }
+                    catch (IOException e){
 
+                    }
+                    mediaPlayer.seekTo(pauseCurrentPosition);
+                    mediaPlayer.start();
+
+                    pauseIsClicked = false;
                 }
-                mediaPlayer.start();
+
+                else {
+                    mediaPlayer = new MediaPlayer();
+                    try{
+                        mediaPlayer.setDataSource(String.valueOf(file));
+                        mediaPlayer.prepare();
+
+                    }
+                    catch (IOException e){
+
+                    }
+                    mediaPlayer.start();
+                }
+
+
 
                 mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
@@ -162,6 +184,9 @@ public class RecordFragment extends Fragment {
 
                 if(mediaPlayer != null){
                     mediaPlayer.getCurrentPosition();
+                    pauseIsClicked = true;
+                    pauseCurrentPosition = mediaPlayer.getCurrentPosition();
+                    Log.d(TAG, "onClick: current position "+ mediaPlayer.getCurrentPosition());
                     mediaPlayer.stop();
                     mediaPlayer.release();
 
